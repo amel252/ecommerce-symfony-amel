@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+{#  ajuster la taille dans la div  #}
+<div class="container my-5">
+    <h1>Inscription</h1>
+    {#  ca nous affiche ce que a dans la BDD Email Password firstName lastName#}
+    {{form(registerForm)}}
+</div>
+
+{% endblock %}
