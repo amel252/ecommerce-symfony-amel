@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints\Length;
 
 class RegisterUserType extends AbstractType
 {
@@ -29,6 +31,12 @@ class RegisterUserType extends AbstractType
             //  si on utiliser le MDP plusieurs fois 
             ->add('plainPassword', RepeatedType::class,[
                 'type'=> PasswordType::class,
+                'constraints'=>[
+                    new Length([
+                        'min'=> 4,
+                        'max'=> 30
+                    ])
+                ],
                 'first_options'=>[
                     'label'=> "Votre mot de passe",
                     'attr'=>[
@@ -53,6 +61,12 @@ class RegisterUserType extends AbstractType
             ])
             ->add('firstName', TextType::class,[
                 'label'=> "Votre nom",
+                'constraints'=>[
+                    new Length([
+                        'min'=>4,
+                        'max'=>30
+                    ])
+                ],
                 'attr'=>[
                     'placeholder' => 'Indiquez votre nom',
                     'class' => 'form-control w-75',
@@ -60,6 +74,12 @@ class RegisterUserType extends AbstractType
             ])
             ->add('lastName', TextType::class,[
                 'label'=> "Votre prénom",
+                'constraints'=>[
+                    new Length([
+                        'min'=>4,
+                        'max'=>30
+                    ])
+                ],
                 'attr'=>[
                     'placeholder' => 'Indiquez votre nom',
                     'class' => 'form-control w-75',
@@ -78,6 +98,13 @@ class RegisterUserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
+            //  on précise ici ce qu'on veux 
+            'constraints'=>[
+                    new UniqueEntity([
+                        'entityClass'=>User::class,
+                        'fields'=> 'email'
+                    ])
+                ],
             'data_class' => User::class,
         ]);
     }
