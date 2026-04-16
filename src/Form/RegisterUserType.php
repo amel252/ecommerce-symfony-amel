@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -25,12 +26,30 @@ class RegisterUserType extends AbstractType
                
 
             ])
-            ->add('password', PasswordType::class,[
-                'label'=> "Votre mot de passe",
-                'attr'=>[
-                    'placeholder' => 'Indiquez votre Mot de passe',
-                    'class' => 'form-control w-75',
-                ]
+            //  si on utiliser le MDP plusieurs fois 
+            ->add('plainPassword', RepeatedType::class,[
+                'type'=> PasswordType::class,
+                'first_options'=>[
+                    'label'=> "Votre mot de passe",
+                    'attr'=>[
+                        'placeholder' => 'Indiquez votre Mot de passe',
+                        'class' => 'form-control w-75',
+                    ],
+                     'hash_property_path'=>'password',
+                ],
+               
+
+                'second_options'=>[
+                    'label'=> "Confirmez votre mot de passe",
+                    'attr'=>[
+                        'placeholder' => 'Confirmez votre Mot de passe',
+                        'class' => 'form-control w-75',
+                    ]
+                ],
+                // plainPassword n'esixte pas dans le modele User, on mettant mapped pour séparer le plainPassword du modele user
+                'mapped'=> false, 
+
+               
             ])
             ->add('firstName', TextType::class,[
                 'label'=> "Votre nom",
