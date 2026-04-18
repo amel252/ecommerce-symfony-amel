@@ -8,6 +8,8 @@
     <h1>Inscription</h1>
     {#  ca nous affiche ce que a dans la BDD Email Password firstName lastName#}
     {{form(registerForm)}}
+    <br>
+    Avez-vous déja un compte ? <a href="{{path('app_login')}}">Connectez-Vous<a/>
 </div>
 
 {% endblock %}
