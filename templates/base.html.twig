@@ -64,6 +64,18 @@
 
 <main>
 
+    {#  pour afficher le msg de  notification  #}
+    <div class="container">
+        {% for label, messages in app.flashes %}
+
+            {% for message in messages %}
+
+                <div class="alert mt-4 alert-{{label}}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
 
     {% block body %}{% endblock %}
     {#  on récupére la partie manquante de l'autre coté a travers son nom  #}

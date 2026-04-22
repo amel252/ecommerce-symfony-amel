@@ -30,7 +30,12 @@ final class RegisterController extends AbstractController
 
         // envoyer les données en BD
         $entityManager->flush();
-            
+        $this->addFlash(
+            type:'success',
+            message:'Votre compte est correctement crée, veuillez vous connecter!'
+        );
+        //  on redirige vers la page login une fois le compte est crée 
+        return $this->redirectToRoute ('app_login');
         }
 
         return $this->render('register/index.html.twig',[

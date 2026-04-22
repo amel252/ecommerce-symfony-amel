@@ -35,6 +35,10 @@ final class AccountController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
         //  le user existe déja , on le met a jour sur la BD 
         $entityManager->flush();
+            $this->addFlash(
+            type:'success',
+            message:'Votre motre passe est correctement mis à jour avec success !'
+            ); 
             
         }
 
