@@ -3,41 +3,55 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Entity\Category;
+use App\Controller\Admin\UserCrudController;
+use App\Controller\Admin\CategoryCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
-use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
-
 
 #[AdminDashboard(routePath: '/admin', routeName: 'admin')]
 class DashboardController extends AbstractDashboardController
 {
-
-
     public function index(): Response
     {
-        // return parent::index();
+        $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
 
-        // Option 1. You can make your dashboard redirect to some common page of your backend
-        
-        $adminUrlGenerator= $this->container->get(AdminUrlGenerator::class);
-        return $this->redirect($adminUrlGenerator->setController(UserCrudController::class)->generateUrl);
+        // Redirection par défaut vers User CRUD
+        return $this->redirect(
+            $adminUrlGenerator
+                ->setController(UserCrudController::class)
+                ->generateUrl()
+        );
     }
-
-
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('E-commerce symfony');
+            ->setTitle('E-commerce Symfony');
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToRoute('Utilisateurs', 'fas fa-user', User::class);
-      
+
+        // URL CRUD USERS
+        $userUrl = $this->container
+            ->get(AdminUrlGenerator::class)
+            ->setController(UserCrudController::class)
+            ->generateUrl();
+
+        yield MenuItem::linkToUrl('Utilisateurs', 'fas fa-user', $userUrl);
+
+        // URL CRUD CATEGORIES
+        $categoryUrl = $this->container
+            ->get(AdminUrlGenerator::class)
+            ->setController(CategoryCrudController::class)
+            ->generateUrl();
+
+        yield MenuItem::linkToUrl('Categories', 'fas fa-list', $categoryUrl);
     }
 }
