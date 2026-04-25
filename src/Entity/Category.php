@@ -79,6 +79,12 @@ class Category
         return $this;
     }
 
+    // il ne veux pas prendre nos string , on dois convertir un object en string , une fois on relie 2 table ce message s'affichera
+    public function __toString()
+    {
+        return $this-> name ;
+    }
+
     public function removeProduct(Product $product): static
     {
         if ($this->products->removeElement($product)) {

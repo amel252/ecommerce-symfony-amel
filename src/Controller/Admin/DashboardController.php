@@ -26,6 +26,11 @@ class DashboardController extends AbstractDashboardController
                 ->setController(UserCrudController::class)
                 ->generateUrl()
         );
+        return $this->redirect(
+            $adminUrlGenerator
+                ->setController(ProductCrudController::class)
+                ->generateUrl()
+        );
     }
 
     public function configureDashboard(): Dashboard
@@ -53,5 +58,13 @@ class DashboardController extends AbstractDashboardController
             ->generateUrl();
 
         yield MenuItem::linkToUrl('Categories', 'fas fa-list', $categoryUrl);
+
+        // URL CRUD Product
+        $productUrl = $this->container
+            ->get(AdminUrlGenerator::class)
+            ->setController(ProductCrudController::class)
+            ->generateUrl();
+
+        yield MenuItem::linkToUrl('Produits', 'fas fa-tag', $productUrl);
     }
 }
