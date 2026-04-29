@@ -26,6 +26,13 @@ class DashboardController extends AbstractDashboardController
                 ->setController(UserCrudController::class)
                 ->generateUrl()
         );
+        // categorie crud
+        return $this->redirect(
+            $adminUrlGenerator
+                ->setController(CategoryCrudController::class)
+                ->generateUrl()
+        );
+        // produit crud
         return $this->redirect(
             $adminUrlGenerator
                 ->setController(ProductCrudController::class)

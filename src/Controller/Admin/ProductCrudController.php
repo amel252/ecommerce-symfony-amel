@@ -36,9 +36,9 @@ class ProductCrudController extends AbstractCrudController
 
             NumberField::new('price')->setLabel('Prix H.T')->setHelp('Le prix H.T du produit'),
             ChoiceField::new('tva')->setLabel('Taux de TVA')->setChoices([
-                '5,5%' => '5,5',
+                '5.5%' => '5.5',
                 '10%' => '10',
-                '20' => '20'
+                '20%' => '20'
             ]),
             AssociationField::new('category', 'Categorie associée')
 
