@@ -11,7 +11,7 @@
             <div class="col-md-3 text-center">
                 <img src="/uploads/{{product.illustration}}"class="img-fluid" alt=""/>
                 <strong>{{product.name}}</strong>
-                <strong>{{product.getPriceWithTaxe}}</strong>
+                <strong>{{product.getPriceWithTaxe|price}}</strong>
             </div>
         
         {% endfor %}
