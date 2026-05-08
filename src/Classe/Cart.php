@@ -45,4 +45,18 @@ class Cart
     {
         return $this->requestStack->getSession()->remove('cart', []);
     }
+    //  function qui permet de retiré un produit dans  le panier
+    public function decreaseCart($id)
+    {
+        //  récup le panier stocké en session
+        $cart = $this->requestStack->getSession()->get('cart', []);
+        //  si qty est inf à 1 on diminué
+        if ($cart[$id]['qty'] > 1) {
+            $cart[$id]['qty'] = $cart[$id]['qty'] - 1 ;
+        } else {
+            unset($cart[$id]);
+        }
+        // sauvegarder le panier (calcul de tout)
+        $this->requestStack->getSession()->set('cart', $cart);
+    }
 }

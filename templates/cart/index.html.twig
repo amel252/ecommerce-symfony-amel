@@ -22,8 +22,15 @@
                     </span>
                 </div>
                 <div class="col-md-2 text-right">
+                    <a href="{{path('app_cart_decrease',{id:product.object.id})}}">-</a>
                     <span class="badge text-bg-secondary">X{{product.qty}}</span>
+                    <a href="{{path('app_cart_add',{id:product.object.id})}}">+</a>
+                    
                 </div>
+                {# <div class="col-md-2 text-right">
+                    <span class="badge text-bg-secondary">X{{product.qty}}</span>
+                </div> #}
+                
                 <div class="col-md-2">
                     <strong>x{{(product.qty * product.object.getPriceWithTaxe)|price}}</strong>
                 </div>
@@ -31,6 +38,7 @@
             </div>
 
             {% endfor %}
+            <a class="small mt-3 d-block" href="{{path('app_cart_remove')}}">Vider le panier</a>
             </div>
             <div class="col-md-4 text-center">
             Résumé du panier

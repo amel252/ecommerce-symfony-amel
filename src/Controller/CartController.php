@@ -51,6 +51,14 @@ final class CartController extends AbstractController
             message:'Votre panier  a été supprimer avec succès'
         );
 
-        return $this->redirectToUrl('app_home');
+        return $this->redirectToRoute('app_home');
+    }
+    // la route qui permet la reduction de la qty de produit dans panier
+    #[Route('/panier/reduction/{id}', name: 'app_cart_decrease')]
+    public function decrease($id, Cart $cart): Response
+    {
+
+        $cart->decreaseCart($id);
+        return $this->redirectToRoute('app_cart');
     }
 }
