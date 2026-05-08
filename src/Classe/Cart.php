@@ -59,4 +59,36 @@ class Cart
         // sauvegarder le panier (calcul de tout)
         $this->requestStack->getSession()->set('cart', $cart);
     }
+    //  function qui permet de retourné le nombre total de nos produit dans le panier
+    public function fullQuantity()
+    {
+        //  récup le panier stocké en session
+        $cart = $this->requestStack->getSession()->get('cart', []);
+        //  si le panier n'existe pas qty est 0
+        $quantity = 0 ;
+        if (!isset($cart)) {
+            return $quantity;
+        }
+        foreach ($cart as $product) {
+            // quantity = l'ancienne quantité + le nouveau produit ajouté
+            $quantity = $quantity + $product['qty'];
+        }
+        return $quantity;
+    }
+    //  function qui permet de retourné le prix total de nos produit dans le panier (avec livraison)
+    public function getTotalPrice()
+    {
+        //  récup le panier stocké en session
+        $cart = $this->requestStack->getSession()->get('cart', []);
+        //  si le panier n'existe pas le prix est 0
+        $price = 0 ;
+        if (!isset($cart)) {
+            return $price;
+        }
+        //  je prends la variable vide de $price et je rajoute le prixavecTaxe x le nombre de produits
+        foreach ($cart as $product) {
+            $price = $price + ($product['object']->getPriceWithTaxe() * $product['qty']);
+        }
+        return $price;
+    }
 }

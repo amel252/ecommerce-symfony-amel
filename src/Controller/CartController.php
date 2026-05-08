@@ -16,7 +16,9 @@ final class CartController extends AbstractController
     {
         return $this->render('cart/index.html.twig', [
             //  on récupere ce qu'on a fait dans Cart.php
-            'cart' => $cart->getCart()
+            'cart' => $cart->getCart(),
+            //  on récup la function dans Cart.php
+            'totalPrice' => $cart->getTotalPrice(),
         ]);
     }
     // la route qui permet l'ajout un produit dans le panier
@@ -32,11 +34,7 @@ final class CartController extends AbstractController
             type:'success',
             message:'Votre produit a été ajouté avec succès'
         );
-
-        return $this->render('cart/index.html.twig', [
-            //  on récupere ce qu'on a fait dans Cart.php
-            'cart' => $cart->getCart()
-        ]);
+        return $this-> redirect($request->headers->get('referer'));
     }
     // la route qui permet la suppression du panier
     #[Route('/panier/supprimer', name: 'app_cart_remove')]
@@ -61,4 +59,7 @@ final class CartController extends AbstractController
         $cart->decreaseCart($id);
         return $this->redirectToRoute('app_cart');
     }
+    // la route qui permet le calcul de nos prix dans panier
+
+
 }
