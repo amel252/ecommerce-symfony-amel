@@ -17,7 +17,7 @@
                 </small>
                 <h1>{{product.name}}</h1>
                     <span class="d-block mb-2">{{product.getPriceWithTaxe|price}}</span>
-                    {#  pour retirer les div en debut et a la fin  #}
+                    {#  pour retirer les div en debut et a la fin à l'affichage  #}
                     {{product.description|raw}}
                     <a href="{{path('app_cart_add', {id:product.id})}}" class="btn btn-success mt-3 w-100">Ajouter au panier </a>
             </div>

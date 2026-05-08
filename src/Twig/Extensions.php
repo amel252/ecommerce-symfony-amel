@@ -10,6 +10,7 @@ use Twig\TwigFilter;
 class Extensions extends AbstractExtension implements GlobalsInterface
 {
     private $categoryRepository;
+
     public function __construct(CategoryRepository $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;

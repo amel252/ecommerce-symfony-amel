@@ -35,7 +35,22 @@ final class CartController extends AbstractController
 
         return $this->render('cart/index.html.twig', [
             //  on récupere ce qu'on a fait dans Cart.php
-            'slug' => $product->getSlug()
+            'cart' => $cart->getCart()
         ]);
+    }
+    // la route qui permet la suppression du panier
+    #[Route('/panier/supprimer', name: 'app_cart_remove')]
+    public function remove(Cart $cart): Response
+    {
+
+        $cart->removeCart();
+
+        // msg pour dire que le produit est supprimé
+        $this->addFlash(
+            type:'success',
+            message:'Votre panier  a été supprimer avec succès'
+        );
+
+        return $this->redirectToUrl('app_home');
     }
 }

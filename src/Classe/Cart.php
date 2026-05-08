@@ -16,7 +16,7 @@ class Cart
     public function add($product)
     {
         //  récup le panier stocké en session
-        $cart = $this->requestStack->getSession()->get('cart');
+        $cart = $this->requestStack->getSession()->get('cart', []);
         //  vérifie si produit déja existe dans le panier , avec isset (le contenu)
         if (isset($cart[$product->getId()])) {
             //  si produit existe on augmente la quantité
@@ -34,9 +34,15 @@ class Cart
         // sauvegarder le panier (calcul de tout)
         $this->requestStack->getSession()->set('cart', $cart);
     }
+
     //  function qui retourne le panier en cours
     public function getCart()
     {
-        return $this->requestStack->getSession()->getCart('cart');
+        return $this->requestStack->getSession()->get('cart', []);
+    }
+    //  function qui permet de supprimer le panier
+    public function removeCart()
+    {
+        return $this->requestStack->getSession()->remove('cart', []);
     }
 }
