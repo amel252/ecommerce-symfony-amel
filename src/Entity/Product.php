@@ -30,7 +30,8 @@ class Product
     private ?float $price = null;
 
     #[ORM\Column]
-    private ?float $tva = null;
+    // private ?float $tva = null;
+    private ?string $tva = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     private ?Category $category = null;
@@ -100,18 +101,27 @@ class Product
         return $this;
     }
     //  une fonction permettant de retourner le prix total (avec TVA)
-    public function getPriceWithTaxe()
+    // public function getPriceWithTaxe()
+    // {
+    //     $coeff = 1 + ($this->tva / 100);
+    //     return $coeff * $this->price;
+    // }
+    public function getPriceWithTaxe(): float
     {
-        $coeff = 1 + ($this->tva / 100);
-        return $coeff * $this->price;
+        $tva = (float) $this->tva;
+
+        $coeff = 1 + ($tva / 100);
+
+        return $this->price * $coeff;
     }
 
-    public function getTva(): ?float
+
+    public function getTva(): ?string
     {
         return $this->tva;
     }
 
-    public function setTva(float $tva): static
+    public function setTva(?string $tva): static
     {
         $this->tva = $tva;
 

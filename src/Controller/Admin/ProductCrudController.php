@@ -32,14 +32,22 @@ class ProductCrudController extends AbstractCrudController
             SlugField::new('slug')->setTargetFieldName('name')->setLabel('URL')->setHelp('URL de la categorie génerée'),
             TextEditorField::new('description')->setLabel('Description')->setHelp('La description du produit'),
 
-            ImageField::new('illustration')->setLabel('Image')->setHelp('Image du produit en 600x600px')->setUploadedFileNamePattern('[year]-[month]-[day]-[contentHash].[extension]')->setBasePath('/uploads')->setUploadDir('/public/uploads')->setRequired($required),
+            ImageField::new('illustration')
+            ->setLabel('Image')
+            ->setHelp('Image du produit en 600x600px')
+            ->setUploadedFileNamePattern('[uuid].[extension]')
+            // ->setUploadedFileNamePattern('[year]-[month]-[day]-[contentHash].[extension]')
+            ->setBasePath('/uploads')
+            ->setUploadDir('public/uploads')
+            ->setRequired($required),
 
             NumberField::new('price')->setLabel('Prix H.T')->setHelp('Le prix H.T du produit'),
             ChoiceField::new('tva')->setLabel('Taux de TVA')->setChoices([
                 '5.5%' => '5.5',
                 '10%' => '10',
                 '20%' => '20'
-            ]),
+            ])->renderAsBadges(),
+            // ligne pour régler probleme float
             AssociationField::new('category', 'Categorie associée')
 
 
