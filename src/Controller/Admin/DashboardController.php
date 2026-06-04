@@ -38,6 +38,12 @@ class DashboardController extends AbstractDashboardController
                 ->setController(ProductCrudController::class)
                 ->generateUrl()
         );
+        // Carrier crud
+        return $this->redirect(
+            $adminUrlGenerator
+                ->setController(CarrierCrudController::class)
+                ->generateUrl()
+        );
     }
 
     public function configureDashboard(): Dashboard
@@ -73,5 +79,13 @@ class DashboardController extends AbstractDashboardController
             ->generateUrl();
 
         yield MenuItem::linkToUrl('Produits', 'fas fa-tag', $productUrl);
+
+        // URL CRUD transporteur
+        $carrierUrl = $this->container
+            ->get(AdminUrlGenerator::class)
+            ->setController(CarrierCrudController::class)
+            ->generateUrl();
+
+        yield MenuItem::linkToUrl('Transporteur', 'fas fa-truck', $carrierUrl);
     }
 }

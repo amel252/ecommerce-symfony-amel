@@ -23,14 +23,14 @@ final class AddressController extends AbstractController
     }
 
     //  Création de la route Affichage du template (adresse)
-    #[Route('/compte/adresses', name: 'app_account_addresses')]
+    #[Route('/compte/addresses', name: 'app_account_addresses')]
     public function addresses(): Response
     {
         return $this->render('account/address/index.html.twig');
     }
 
     //  Ajout de l'adresse en utilisant btn , en utilise defaults pour faire l'exception , meme si id est null la requette passera
-    #[Route('/compte/adresses/ajout/{id}', name: 'app_account_address_form', defaults:['id' => null])]
+    #[Route('/compte/addresses/ajout/{id}', name: 'app_account_address_form', defaults:['id' => null])]
     public function form(Request $request, $id, AddressRepository $addressRepository): Response
     {
         //  si id de l'user connecté
@@ -62,7 +62,7 @@ final class AddressController extends AbstractController
             );
             return $this->redirectToRoute('app_account_addresses');
         }
-        return $this->render('account/account/form.html.twig', [
+        return $this->render('account/address/form.html.twig', [
             'addressForm' => $form
         ]);
     }
